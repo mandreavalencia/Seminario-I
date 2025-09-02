@@ -77,6 +77,34 @@ Tecnologías relacionadas
 Cuadro comparativo
 
 
+Instalación de React con Vite
+
+Este proyecto se creó usando *Vite* como herramienta de construcción, ya que es más rápida y ligera que Create React App (CRA).
+
+ Pasos de instalación
+
+- Crear el proyecto con Vite
+npm create vite@latest react-app
+
+-Entrar a la carpeta del proyecto
+cd react-app
+
+-Instalar dependencias
+npm install
+
+-Iniciar el servidor de desarrollo
+npm run dev
+
+
+ Comparativo: Vite CLI vs Create React App (CRA)
+
+|  Característica       |    Vite CLI              |    Create React App (CRA)     |
+| --------------------- | ----------------------   | ---------------------------   |
+| *Velocidad de inicio* | Muy rápida (ms)          | Lenta (segundos-minutos)      |
+| *Build final*         | Optimizada y ligera      | Más pesada                    |
+| *Configuración*       | Flexible y visible       | Oculta y difícil de modificar |
+| *Soporte moderno*     | ESModules, TS, JSX, etc. | Compatible pero más lento     |
+| *Popularidad actual*  | En crecimiento           | En desuso                     |
 
 Conclusión
 
