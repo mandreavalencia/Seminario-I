@@ -83,7 +83,7 @@ Este proyecto se creó usando *Vite* como herramienta de construcción, ya que e
 
  Pasos de instalación
 
-- Crear el proyecto con Vite
+-Crear el proyecto con Vite
 npm create vite@latest react-app
 
 -Entrar a la carpeta del proyecto
