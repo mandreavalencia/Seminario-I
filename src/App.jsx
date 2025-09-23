@@ -1,7 +1,9 @@
-import { useState, Suspense } from "react";  
+import { useState, Suspense } from "react";   
 import { useSelector, useDispatch, Provider } from "react-redux";
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+
 
 // ---------------- REDUX STORE ----------------
 const counterSlice = createSlice({
@@ -74,7 +76,6 @@ function Home() {
   return (
     <div style={{ textAlign: "center" }}>
       <Header mensaje="✨ Bienvenido a la App ✨" />
-      {/* Ocultamos "Estado Global con Redux" en UI, pero lo explicamos en el código */}
       <button 
         onClick={() => { dispatch(decrement()); setLastAction("dec"); }}
         style={btnStyle}
@@ -116,7 +117,6 @@ function Personas() {
 
   return (
     <div style={{ textAlign: "center" }}>
-      {/* Ocultamos "Lifting State Up" en la UI */}
       <button onClick={cambiarColor} style={btnStyle}>
         🎨 Cambiar Color Global
       </button>
@@ -147,6 +147,44 @@ function About() {
   );
 }
 
+// 🔹 NUEVA PÁGINA: Usuarios con datos reales
+function Usuarios() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al cargar los usuarios");
+        return res.json();
+      })
+      .then((data) => setUsuarios(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p style={{ textAlign: "center" }}>Cargando usuarios...</p>;
+  if (error) return <p style={{ color: "red", textAlign: "center" }}>❌ {error}</p>;
+
+  return (
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h2>Lista de Usuarios (API)</h2>
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {usuarios.map((u) => (
+          <li key={u.id} style={{ marginBottom: "10px" }}>
+            <Card>
+              <strong>{u.name}</strong> <br />
+              ✉️ {u.email} <br />
+              📍 {u.address.city}
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 // Guard para rutas protegidas
 function RequireAuth({ children, isLogged }) {
   return isLogged ? children : <Navigate to="/" replace />;
@@ -167,6 +205,7 @@ function AppContent() {
       }}>
         <Link to="/" style={linkStyle}>Inicio</Link>
         <Link to="/personas" style={linkStyle}>Personas</Link>
+        <Link to="/usuarios" style={linkStyle}>Usuarios</Link>
         <Link to="/about" style={linkStyle}>Acerca de</Link>
         <button onClick={() => setIsLogged(!isLogged)} style={btnStyle}>
           {isLogged ? "Logout" : "Login"}
@@ -178,6 +217,11 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/personas" element={<Personas />} />
           <Route path="/persona/:nombre" element={<PersonaDetalle />} />
+          <Route path="/usuarios" element={
+            <RequireAuth isLogged={isLogged}>
+              <Usuarios />
+            </RequireAuth>
+          } />
           <Route path="/about" element={
             <RequireAuth isLogged={isLogged}>
               <About />
