@@ -1,0 +1,86 @@
+.vehiculo-detail-container {
+  max-width: 1200px;
+  margin: 60px auto;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.vehiculo-detail-container:hover {
+  transform: scale(1.01);
+}
+
+.vehiculo-detail-image {
+  flex: 1 1 40%;
+  background-color: #f3f4f6;
+}
+
+.vehiculo-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vehiculo-detail-info {
+  flex: 1 1 60%;
+  padding: 24px;
+}
+
+.vehiculo-detail-info h2 {
+  color: #155e75;
+  margin-bottom: 12px;
+}
+
+.vehiculo-detail-info p {
+  margin: 6px 0;
+  color: #374151;
+  font-size: 15px;
+}
+
+.vehiculo-detail-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-editar,
+.btn-eliminar {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.btn-editar {
+  background-color: #0ea5e9;
+}
+
+.btn-editar:hover {
+  background-color: #0284c7;
+}
+
+.btn-eliminar {
+  background-color: #ef4444;
+}
+
+.btn-eliminar:hover {
+  background-color: #dc2626;
+}
+
+/* 📱 Responsivo */
+@media (max-width: 700px) {
+  .vehiculo-detail-container {
+    flex-direction: column;
+  }
+
+  .vehiculo-detail-image {
+    height: 220px;
+  }
+}
